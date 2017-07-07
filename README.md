@@ -1,6 +1,4 @@
-# SOFTWARE FOUNDATION
-
-[Sources][1]
+# [SOFTWARE FOUNDATION][1]
 
 ## Volume 1
 
