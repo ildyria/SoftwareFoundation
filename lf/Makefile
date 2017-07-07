@@ -221,7 +221,7 @@ clean::
 	- rm -rf html mlihtml uninstall_me.sh
 
 cleanall:: clean
-	rm -f $(patsubst %.v,.%.aux,$(VFILES))
+	rm -f $(patsubst %.v,.%.vo.aux,$(VFILES))
 
 archclean::
 	rm -f *.cmx *.o
