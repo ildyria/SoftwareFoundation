@@ -22,6 +22,7 @@ _CoqProject
 *#
 .#*
 *.aux
+.*.vo.aux
 
 *.bck
 *.bak
