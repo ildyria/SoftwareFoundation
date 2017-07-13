@@ -77,7 +77,10 @@ Theorem silly_ex :
      evenb 3 = true ->
      oddb 4 = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  apply H.
+  assumption.
+Qed.
 (** [] *)
 
 (** To use the [apply] tactic, the (conclusion of the) fact
@@ -110,7 +113,11 @@ Theorem rev_exercise1 : forall (l l' : list nat),
      l = rev l' ->
      l' = rev l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l l' H.
+  rewrite H.
+  rewrite rev_involutive.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, optionalM (apply_rewrite)  *)
@@ -178,7 +185,10 @@ Example trans_eq_exercise : forall (n m o p : nat),
      (n + p) = m ->
      (n + p) = (minustwo o).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n m o p Hmo Hnpm.
+  rewrite Hnpm.
+  assumption.
+  Qed.
 (** [] *)
 
 (* ################################################################# *)
@@ -255,7 +265,12 @@ Example inversion_ex3 : forall (X : Type) (x y z : X) (l j : list X),
   y :: l = x :: j ->
   x = y.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H.
+  inversion H0.
+  subst.
+  reflexivity.
+  Qed.
 (** [] *)
 
 (** When used on a hypothesis involving an equality between
@@ -319,7 +334,9 @@ Example inversion_ex6 : forall (X : Type)
   y :: l = z :: j ->
   x = z.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H.
+  Qed.
 (** [] *)
 
 (** To summarize this discussion, suppose [H] is a hypothesis in the
@@ -410,7 +427,18 @@ Theorem plus_n_n_injective : forall n m,
      n = m.
 Proof.
   intros n. induction n as [| n'].
-    (* FILL IN HERE *) Admitted.
+  intros [] H.
+  reflexivity.
+  inversion H.
+  intros [] Hm.
+  inversion Hm.
+  f_equal.
+  apply IHn'.
+  simpl in Hm.
+  do 2 rewrite <- plus_n_Sm in Hm.
+  do 2 inversion Hm.
+  reflexivity.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
@@ -566,7 +594,15 @@ Proof.
 Theorem beq_nat_true : forall n m,
     beq_nat n m = true -> n = m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction n; intros [] H.
+  reflexivity.
+  simpl in H ; inversion H.
+  simpl in H ; inversion H.
+  f_equal.
+  apply IHn.
+  simpl in H.
+  assumption.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, advancedM (beq_nat_true_informal)  *)
@@ -691,7 +727,16 @@ Theorem nth_error_after_last: forall (n : nat) (X : Type) (l : list X),
      length l = n ->
      nth_error l n = None.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n X l. generalize dependent n.
+  induction l ; intros n H.
+  simpl in H. rewrite <- H. reflexivity.
+  destruct n.
+  simpl in H ; inversion H.
+  simpl.
+  apply IHl.
+  inversion H.
+  reflexivity.
+  Qed.
 (** [] *)
 
 
@@ -859,7 +904,26 @@ Theorem combine_split : forall X Y (l : list (X * Y)) l1 l2,
   split l = (l1, l2) ->
   combine l1 l2 = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X Y. induction l as [| [x y] q IHl]; intros l1 l2 H.
+  simpl in H.
+  inversion H.
+  reflexivity.
+  simpl in H.
+  destruct l1, l2.
+  inversion H.
+  inversion H.
+  inversion H.
+  inversion H.
+  subst.
+  simpl.
+  f_equal.
+  apply IHl.
+  clear IHl x0 y0 H.
+  induction q.
+  reflexivity.
+  destruct x.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** However, [destruct]ing compound expressions requires a bit of
