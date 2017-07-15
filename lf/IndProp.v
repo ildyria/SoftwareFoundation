@@ -1670,7 +1670,14 @@ Qed.
 (** **** Exercise: 2 stars, recommended (reflect_iff)  *)
 Theorem reflect_iff : forall P b, reflect P b -> (P <-> b = true).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros ; split ; intros H'.
+  inversion H ; subst ; clear H.
+  reflexivity.
+  contradiction.
+  subst.
+  inversion H.
+  assumption.
+Qed.
 (** [] *)
 
 (** The advantage of [reflect] over the normal "if and only if"
@@ -1720,8 +1727,20 @@ Fixpoint count n l :=
 
 Theorem beq_natP_practice : forall n l,
   count n l = 0 -> ~(In n l).
-Proof.
-  (* FILL IN HERE *) Admitted.
+Proof. intros n l ; generalize dependent n ; induction l as [| h l IHl] ; intros n H.
+- simpl; intro ; assumption.
+- simpl in H.
+  destruct (beq_natP n h) as [Hhn | Hhn].
+  inversion H.
+  simpl in H.
+  intro G.
+  apply IHl in H.
+  apply H.
+  destruct G ; try assumption.
+  exfalso.
+  apply Hhn.
+  auto.
+Qed.
 (** [] *)
 
 (** This technique gives us only a small gain in convenience for
