@@ -19,6 +19,6 @@
 ![vol3][4]
 
 [1]: https://softwarefoundations.cis.upenn.edu/draft/index.html
-[2]: https://gitlab.science.ru.nl/benoit/SoftwareFoundation/raw/master/covers/lf_icon.jpg
-[3]: https://gitlab.science.ru.nl/benoit/SoftwareFoundation/raw/master/covers/plf_icon.jpg
-[4]: https://gitlab.science.ru.nl/benoit/SoftwareFoundation/raw/master/covers/vfa_icon.jpg
+[2]: https://raw.githubusercontent.com/ildyria/SoftwareFoundation/main/covers/lf_icon.jpg
+[3]: https://raw.githubusercontent.com/ildyria/SoftwareFoundation/main/covers/plf_icon.jpg
+[4]: https://raw.githubusercontent.com/ildyria/SoftwareFoundation/main/covers/vfa_icon.jpg
